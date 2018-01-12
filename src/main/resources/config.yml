@@ -1,0 +1,67 @@
+# 说明：
+# 表名和字段都是下划线命名法，相对应的Java实体类中都是驼峰命名法，其中字段名首字段小写，
+# 比如 表 HR_DEP 的字段 USER_NAME, 对应的实体类就是 HrDep 和属性 userName
+
+# PowerDesigner 数据模型文件位置
+pdm_file: /Volumes/M320/workspace/chengang/pdm-generate/db-sample.pdm
+
+# 生成文件所在目录
+generate_dir: /Users/chen/Downloads/tmp/gen/
+
+# 包名, 默认为common (实体类,DTO, ibatis脚本里都会用到)
+# package_name: cn.yowob.chengang.common
+
+# 没有主键的表. (这类表的SQL和实体类方法都需要把主键相关的去掉)
+# none_pk_tables: [Topic]
+
+# 只处理以下表，默认处理所有表Vote
+# generate_tables:  [Topic, Vote]
+
+# 以下表不处理 (另注: 所有TMP_和ETL_开头的表都在程序里过滤掉了)
+# exclude_tables: []
+
+# 字段如果是数据库关键字，则在SQL中需要加反引号，比如`key`, 否则会报错
+# key_words: [key]
+
+# PowerDesigner里的long类型不是数值, 所以到底是映射成Java类的Long还有Integer呢?
+# 代码里的规则( 代码在GenerateUtils类里 ), 除了以下字段外, 都用 Integer:
+# 1. 为主键, 则用 Long 型
+# 2. 字段名含有 id 字符, 则用 Long 型
+# 3. PowerDesigner 里的字符注释含有 #Long# 字符的
+# 4. 以下 long_fields 特别指定的字段, 用 Long 型
+# long_fields: [add_user, alt_user]
+
+
+# 特别指定的数据库字段的 java 类型
+# 格式：“实体类名.属性名： 属性的Java类型”
+# java_type_map:
+#    Table111.phone: Long
+#    Table222.code: Long
+
+
+ibatis2:
+    # 是否产生oracle专用的SQL
+    # generate_oracle: true
+
+    # 是否产生mysql专用的SQL
+    # generate_mysql: true
+
+    default_base_sqls: [findOne, findAll, findAllCount, deleteOne, deleteAll, insert, update]
+
+    # 因为开发中经常会有数据表结构的变化,所以把 ibatis SQL 文件分成了两个文件.
+    # 这样在重新 ibatis SQL 文件之后, BASE 文件就可以直接覆盖, 而不用辛苦的检查比对了.
+    # 一个文件称为BASE, 基本不会去修改它, 是一些基本经典的增删改查SQL, 比如:findOne,deleteOne等
+    # 一个文件称为EXTEND, 开发常因为涉及表与表的关联查询, 而需要修改和扩展的SQL, 比如:findOneDetail,findAllByQuery等
+    # 但在特殊情况下,也可能要把findOne移入EXTEND文件, 而把findOneDetail移入BASE文件.
+    #
+    # 使用格式：“实体类名: SqlId”
+    # extend_to_base_sqls:
+    #      Topic: [findOneDetail]
+    #      Vote: [findOneDetail,findAllByQuery]
+
+
+    # 放入可扩展 sqlmap 文件的 SQL (仅支持: findOne,findAll,findAllCount,deleteAll,deleteOne,update)
+    # base_to_extend_sqls:
+    #      Topic: [findOne]
+    #      Vote: [findOne,update]
+
