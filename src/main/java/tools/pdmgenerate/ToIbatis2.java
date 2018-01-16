@@ -188,12 +188,6 @@ public class ToIbatis2 implements Handler {
 			} else {
 				isGenerate = false;
 			}
-//			if (sqlId.equals("findOneDetail") && className.equals("Topic")) {
-//				log.info("isExtend={} ------ isPassGenerate: {}.{}  ", ToIbatis2.this.isExtend, className, sqlId);
-//				log.info("isBaseToExtend(sqlId)={}", isBaseToExtend(sqlId));
-//				log.info("isExtendToBase(sqlId)={}", isExtendToBase(sqlId));
-//				log.info("isGenerate={}", isGenerate);
-//			}
 			return !isGenerate;
 		}
 
@@ -412,7 +406,6 @@ public class ToIbatis2 implements Handler {
 			if (list == null) {
 				return false;
 			}
-//			log.info("isBaseToExtend {}={}, {}", className, list, sqlId);
 			return list.contains(sqlId);
 		}
 
@@ -424,7 +417,6 @@ public class ToIbatis2 implements Handler {
 			if (list == null) {
 				return false;
 			}
-//			log.info("isExtendToBase {}={}, {}", className, list, sqlId);
 			return list.contains(sqlId);
 		}
 

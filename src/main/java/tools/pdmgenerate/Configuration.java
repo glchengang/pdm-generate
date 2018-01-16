@@ -60,7 +60,7 @@ public class Configuration {
 	public static void load(String filename) throws FileNotFoundException {
 		Yaml yaml = new Yaml();
 
-		FileInputStream fis = null;
+		FileInputStream fis;
 		if (filename.indexOf("/") == -1 && filename.indexOf("\\") == -1) {
 			log.info("class-path filename = {}", filename);
 			URL url = Configuration.class.getClassLoader().getResource(filename);
@@ -92,7 +92,7 @@ public class Configuration {
 		GENERATE_TABLES = getList(m, "generate_tables");
 		EXCLUDE_TABLES = getList(m, "exclude_tables");
 		NONE_PK_TABLES = getList(m, "none_pk_tables");
-
+		JAVA_TYPE_MAP = getMap(m, "java_type_map");
 		/**
 		 * 转为小写
 		 */
@@ -119,7 +119,6 @@ public class Configuration {
 			}
 		}
 
-		JAVA_TYPE_MAP = getMap(m, "java_type_map");
 		/**
 		 * ibatis
 		 */
@@ -145,15 +144,6 @@ public class Configuration {
 			if (DEFAULT_BASE_SQLS == null) {
 				DEFAULT_BASE_SQLS = Collections.emptyList();
 			}
-
-//			System.out.println("IBATIS2_EXTEND_TO_BASE_SQL_MAP="+IBATIS2_EXTEND_TO_BASE_SQL_MAP);
-//			System.out.println("IBATIS2_BASE_TO_EXTEND_SQL_MAP="+IBATIS2_BASE_TO_EXTEND_SQL_MAP);
-//			System.out.println(IBATIS2_EXTEND_TO_BASE_SQL_MAP.get("Topic"));
-//			System.out.println(IBATIS2_EXTEND_TO_BASE_SQL_MAP.get("Topic").getClass());
-//			System.out.println(IBATIS2_EXTEND_TO_BASE_SQL_MAP.get("Topic").contains("findOneDetail"));
-//			System.out.println(IBATIS2_EXTEND_TO_BASE_SQL_MAP.get("Topic").contains("findOneDetail1"));
-
-			System.out.println("DEFAULT_BASE_SQLS=" + DEFAULT_BASE_SQLS);
 		}
 	}
 

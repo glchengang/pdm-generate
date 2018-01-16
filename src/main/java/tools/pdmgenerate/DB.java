@@ -79,17 +79,4 @@ public class DB {
 		return tableDTO;
 	}
 
-	public static void main(String[] args) {
-		TABLE_LIST = new ArrayList<Table>();
-		Element root = GenerateUtils.getDocument(Configuration.PDM_FILE).getRootElement();
-		// 选择有id属性的o:Table
-		List<Element> tableList = root.selectNodes("//o:Table[@Id]");
-		log.info("table count = " + tableList.size());
-		for (Element tableElement : tableList) {
-			Table table = getTable(tableElement);
-			TABLE_LIST.add(table);
-			log.info("" + table);
-		}
-	}
-
 }
